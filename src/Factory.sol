@@ -4,14 +4,15 @@ pragma solidity ^0.8.13;
 import {Initializable} from "solady/utils/Initializable.sol";
 import {LibClone} from "solady/utils/LibClone.sol";
 import {Ownable} from "solady/auth/Ownable.sol";
-import {Pool} from "./Pool.sol";
+import {RewardPool} from "./Pool.sol";
 
 contract Factory {
     address public immutable poolImplementation;
     uint256 public poolNonce;
-
-    constructor(address _poolImplementation) {
+    address public immutable jaxToken;
+    constructor(address _poolImplementation, address _jaxToken) {
         poolImplementation = _poolImplementation;
+        jaxToken = _jaxToken;
     }
 
     function createPool() external returns (address poolAddress) {
@@ -29,6 +30,6 @@ contract Factory {
         poolNonce++;
 
         poolAddress = LibClone.cloneDeterministic(poolImplementation, salt);
-        Pool(poolAddress).initialize();
+        RewardPool(poolAddress).initialize(jaxToken);
     }
 }
