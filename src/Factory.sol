@@ -4,7 +4,7 @@ pragma solidity ^0.8.13;
 import {Initializable} from "solady/utils/Initializable.sol";
 import {LibClone} from "solady/utils/LibClone.sol";
 import {Ownable} from "solady/auth/Ownable.sol";
-import {RewardPool} from "./Pool.sol";
+import {RewardPool} from "./RewardPool.sol";
 
 contract Factory {
     address public immutable poolImplementation;
